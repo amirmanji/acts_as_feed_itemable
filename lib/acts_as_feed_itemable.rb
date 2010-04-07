@@ -1,4 +1,4 @@
-module FeedItemable
+module ActsAsFeedItemable
   def self.included(base)
     base.extend(ClassMethods)
   end
@@ -25,16 +25,14 @@ module FeedItemable
           
           define_method :process_feed_item do
             feed_item.destroy if feed_item && !(self.send(flag))
-            if need_new_feed_item? && feed_item_eligible?
-		          fi = FeedItem.create!(:user => self.user, :item => self)
-            end
+		        FeedItem.create(:user => self.user, :item => self) if need_new_feed_item? && feed_item_eligible?
           end
         end
         
         include mod
         after_save :process_feed_item
       else
-        include FeedItemable::DefaultInstanceMethods
+        include ActsAsFeedItemable::DefaultInstanceMethods
         after_create :process_feed_item
       end
     end
@@ -51,4 +49,4 @@ module FeedItemable
   end
 end
 
-ActiveRecord::Base.send(:include, FeedItemable)
+ActiveRecord::Base.send(:include, ActsAsFeedItemable)

@@ -42,7 +42,7 @@ class ActsAsFeedItemableTest < Test::Unit::TestCase
     assert_equal 0, @user.feed_items.count
   end
   
-  def test_create_with_flags
+  def test_create_with_flag
     pancake = Pancake.create(:user => @user, :tasty => true).reload
     
     assert pancake.feed_item
@@ -50,7 +50,7 @@ class ActsAsFeedItemableTest < Test::Unit::TestCase
     assert_equal 1, @user.feed_items.count
   end
   
-  def test_update_generation_with_flags
+  def test_update_generation_with_flag
     pancake = Pancake.create(:user => @user).reload
     
     original_count = FeedItem.count
@@ -60,7 +60,7 @@ class ActsAsFeedItemableTest < Test::Unit::TestCase
     assert_equal original_count + 1, FeedItem.count
   end
   
-  def test_update_destruction_with_flags
+  def test_update_destruction_with_flag
     pancake = Pancake.create(:user => @user, :tasty => true).reload
     
     original_count = FeedItem.count
@@ -70,7 +70,7 @@ class ActsAsFeedItemableTest < Test::Unit::TestCase
     assert_equal original_count - 1, FeedItem.count
   end
   
-  def test_destroy_with_flags
+  def test_destroy_with_flag
     pancake = Pancake.create(:user => @user, :tasty => true).reload.destroy
     
     assert_equal 0, FeedItem.count
