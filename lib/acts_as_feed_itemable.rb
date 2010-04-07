@@ -44,7 +44,7 @@ module FeedItemable
     end
     
     def process_feed_item
-      FeedItem.create(:user => self.user, :item => self) feed_item_eligible?
+      FeedItem.create(:user => self.user, :item => self) if feed_item_eligible?
     end
   end
 end
